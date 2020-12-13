@@ -19,13 +19,22 @@
               <el-menu-item index="2-4-2">选项2</el-menu-item>
             </el-submenu>
           </el-submenu>
+          <el-menu-item index="3">写文章</el-menu-item>
+          <el-col :span="1" :offset="7">
+            <el-button style="margin: 0px 0px 0px 0px" type="primary" size="mini">写文章</el-button>
+          </el-col>
+          <el-col :span="2.5" :offset="12">
+            <el-button icon="el-icon-d-arrow-left" circle size="small"></el-button>
+            <el-button icon="el-icon-video-play" circle size="small"></el-button>
+            <el-button icon="el-icon-d-arrow-right" circle size="small"></el-button>
+          </el-col>
         </el-menu>
       </el-header>
       <!-- 主体 -->
       <el-container>
+        <!--侧边栏-->
         <el-aside width="200px">
           <el-row class="tac">
-            <!--            <el-col :span="12">-->
             <el-menu
               default-active="2"
               class="el-menu-vertical-demo"
@@ -62,23 +71,12 @@
                 <span slot="title">导航四</span>
               </el-menu-item>
             </el-menu>
-            <!--            </el-col>-->
           </el-row>
         </el-aside>
         <el-container>
+          <!--主题-->
           <el-main>
-            <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-              <li v-for="i in count" class="infinite-list-item">
-                <el-card class="box-card" shadow="hover">
-                  <div slot="header" class="clearfix">
-                    <span>卡片名称{{i}}</span>
-                  </div>
-                  <div v-for="o in 4" :key="o" class="text item">
-                    {{'列表内容 ' + o }}
-                  </div>
-                </el-card>
-              </li>
-            </ul>
+            <router-view/>
           </el-main>
           <el-footer>Footer</el-footer>
         </el-container>
@@ -99,9 +97,14 @@
       }, handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
-      load() {
-        if (this.count < 6) {
-          this.count += 2
+      handleSelect(key, keyPath){
+        switch(key){
+          case '1':
+            this.$router.push('/');
+            break;
+          case '3':
+            this.$router.push('/editor');
+            break;
         }
       },
     },
@@ -110,7 +113,6 @@
         activeIndex: '1',
         activeIndex2: '1',
         drawer: false,
-        count: 0,
       };
     },
   }
